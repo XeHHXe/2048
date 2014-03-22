@@ -60,9 +60,23 @@ HTMLActuator.prototype.addTile = function (tile) {
   if (tile.value > 2048) classes.push("tile-super");
 
   this.applyClasses(wrapper, classes);
+  
+  var outputtext = new Array();
+  outputtext[0] = "";
+  outputtext[1] = "H";
+  outputtext[2] = "He";
+  outputtext[3] = "C";
+  outputtext[4] = "O";
+  outputtext[5] = "Na";
+  outputtext[6] = "As";
+  outputtext[7] = "Au";
+  outputtext[8] = "Cu";
+  outputtext[9] = "Cs";
+  outputtext[10] = "Sb";
+  outputtext[11] = "Sb";
 
   inner.classList.add("tile-inner");
-  inner.textContent = tile.value;
+  inner.textContent = inner.textContent = outputtext[(Math.log(tile.value) / Math.LN2)] || '';
 
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
@@ -109,7 +123,7 @@ HTMLActuator.prototype.updateScore = function (score) {
   var difference = score - this.score;
   this.score = score;
 
-  this.scoreContainer.textContent = this.score;
+  this.scoreContainer.textContent = this.score + ' Sb';
 
   if (difference > 0) {
     var addition = document.createElement("div");
@@ -121,12 +135,12 @@ HTMLActuator.prototype.updateScore = function (score) {
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
-  this.bestContainer.textContent = bestScore;
+  this.bestContainer.textContent = bestScore + ' Sb';
 };
 
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
-  var message = won ? "You win!" : "Game over!";
+  var message = won ? "You are admitted to the Antimony University and 1 mol hyperhydrochloric acid will be sent to you." : "Sorry, you are rejected by the Antimony University. Try applying for MIT instead.";
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
